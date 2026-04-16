@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "r47R0W6gKLgERKW4W5w_Y"
+uri = "file://artifacts/dr-karan-malik/public/images/hero.png"
+type = "image"
+title = "Bright modern dental clinic hero"
+
+[[generated]]
+id = "SXd_TnpyhzyqITndJlzH8"
+uri = "file://artifacts/dr-karan-malik/public/images/doctor.png"
+type = "image"
+title = "Professional dentist portrait"

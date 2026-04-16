@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Dr. Karan Malik - Dentist"
+version = "1.0.0"
+id = "artifacts/dr-karan-malik"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24882
+
+[services.development]
+run = "pnpm --filter @workspace/dr-karan-malik run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/dr-karan-malik", "run", "build" ]
+publicDir = "artifacts/dr-karan-malik/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24882"
+BASE_PATH = "/"
