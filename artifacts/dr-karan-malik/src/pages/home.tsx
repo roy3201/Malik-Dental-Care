@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -264,54 +265,114 @@ const Services = () => {
   );
 };
 
-const WhyChooseUs = () => (
-  <section className="py-24 bg-primary text-primary-foreground">
-    <div className="container mx-auto px-4 max-w-7xl">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <h2 className="text-3xl md:text-4xl font-bold font-serif mb-6">Why Patients Trust Us</h2>
-          <p className="text-primary-foreground/80 text-lg mb-8">
-            Choosing a dentist is an important decision. We've built our practice on trust, transparency, and clinical excellence.
-          </p>
-          <ul className="space-y-6">
-            {[
-              "Over 20 years of proven clinical success",
-              "State-of-the-art diagnostic and treatment technology",
-              "Strict sterilization and hygiene protocols",
-              "Transparent, affordable pricing with no hidden fees",
-              "Comfortable, anxiety-free clinic environment"
-            ].map((item, i) => (
-              <li key={i} className="flex items-center gap-4">
-                <div className="bg-white/20 p-1 rounded-full">
-                  <CheckCircle2 className="h-5 w-5 text-accent" />
-                </div>
-                <span className="text-lg">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/10 text-center">
-            <div className="text-4xl font-bold text-accent mb-2">5k+</div>
-            <div className="text-sm font-medium uppercase tracking-wider">Happy Patients</div>
+const useCountUp = (end: number, duration: number = 2000, shouldStart: boolean = false) => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!shouldStart) return;
+    let startTime: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * end));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        setCount(end);
+      }
+    };
+    requestAnimationFrame(step);
+  }, [shouldStart, end, duration]);
+  return count;
+};
+
+const StatCard = ({
+  value, suffix, label, className = "", delay = 0, isVisible
+}: {
+  value: number; suffix: string; label: string; className?: string; delay?: number; isVisible: boolean;
+}) => {
+  const [started, setStarted] = useState(false);
+  const count = useCountUp(value, 2000, started);
+
+  useEffect(() => {
+    if (isVisible && !started) {
+      const timer = setTimeout(() => setStarted(true), delay);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, started, delay]);
+
+  const displayValue = value >= 1000 ? `${Math.floor(count / 1000)}k` : count;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+      transition={{ duration: 0.5, delay: delay / 1000, ease: "easeOut" }}
+      className={`bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/10 text-center ${className}`}
+    >
+      <div className="text-4xl font-bold text-accent mb-2">
+        {displayValue}{suffix}
+      </div>
+      <div className="text-sm font-medium uppercase tracking-wider">{label}</div>
+    </motion.div>
+  );
+};
+
+const WhyChooseUs = () => {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section className="py-24 bg-primary text-primary-foreground">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold font-serif mb-6">Why Patients Trust Us</h2>
+            <p className="text-primary-foreground/80 text-lg mb-8">
+              Choosing a dentist is an important decision. We've built our practice on trust, transparency, and clinical excellence.
+            </p>
+            <ul className="space-y-6">
+              {[
+                "Over 20 years of proven clinical success",
+                "State-of-the-art diagnostic and treatment technology",
+                "Strict sterilization and hygiene protocols",
+                "Transparent, affordable pricing with no hidden fees",
+                "Comfortable, anxiety-free clinic environment"
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-4">
+                  <div className="bg-white/20 p-1 rounded-full">
+                    <CheckCircle2 className="h-5 w-5 text-accent" />
+                  </div>
+                  <span className="text-lg">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/10 text-center translate-y-8">
-            <div className="text-4xl font-bold text-accent mb-2">20+</div>
-            <div className="text-sm font-medium uppercase tracking-wider">Years Experience</div>
-          </div>
-          <div className="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/10 text-center -translate-y-8">
-            <div className="text-4xl font-bold text-accent mb-2">15+</div>
-            <div className="text-sm font-medium uppercase tracking-wider">Awards Won</div>
-          </div>
-          <div className="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/10 text-center">
-            <div className="text-4xl font-bold text-accent mb-2">100%</div>
-            <div className="text-sm font-medium uppercase tracking-wider">Commitment</div>
+          <div ref={statsRef} className="grid grid-cols-2 gap-4">
+            <StatCard value={5000} suffix="+" label="Happy Patients" isVisible={isVisible} delay={0} />
+            <StatCard value={20} suffix="+" label="Years Experience" isVisible={isVisible} delay={200} className="translate-y-8" />
+            <StatCard value={15} suffix="+" label="Awards Won" isVisible={isVisible} delay={400} className="-translate-y-8" />
+            <StatCard value={100} suffix="%" label="Commitment" isVisible={isVisible} delay={600} />
           </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const Testimonials = () => {
   const reviews = [
