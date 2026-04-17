@@ -9,6 +9,7 @@ import {
   Quote, ShieldCheck, HeartPulse, Activity
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import clinicLogo from "@assets/image_1776411256885.png";
 
 const TopBar = () => (
   <div className="bg-primary text-primary-foreground py-2 px-4 text-sm hidden md:block">
@@ -64,9 +65,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 max-w-7xl flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2">
-          <div className="bg-primary text-white p-2 rounded-lg">
-            <Stethoscope className="h-6 w-6" />
-          </div>
+          <img src={clinicLogo} alt="Dr. Karan Malik Dental Clinic Logo" className="h-14 w-14 object-contain" />
           <div>
             <h1 className="text-xl font-bold font-serif text-foreground leading-none">Dr. Karan Malik</h1>
             <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mt-1">Dental Clinic</p>
@@ -461,8 +460,8 @@ const Footer = () => (
     <div className="container mx-auto px-4 max-w-7xl">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
         <div>
-          <div className="flex items-center gap-2 mb-6 text-white">
-            <Stethoscope className="h-8 w-8 text-primary" />
+          <div className="flex items-center gap-3 mb-6">
+            <img src={clinicLogo} alt="Dr. Karan Malik Dental Clinic Logo" className="h-14 w-14 object-contain" />
             <span className="text-2xl font-bold font-serif">Dr. Karan Malik</span>
           </div>
           <p className="text-slate-400 mb-6 leading-relaxed">
