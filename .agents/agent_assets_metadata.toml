@@ -12,3 +12,39 @@ id = "SXd_TnpyhzyqITndJlzH8"
 uri = "file://artifacts/dr-karan-malik/public/images/doctor.png"
 type = "image"
 title = "Professional dentist portrait"
+
+[[generated]]
+id = "SeQq3kkMYQsHd4dVZOd2D"
+uri = "file://artifacts/dr-karan-malik/public/gallery/clinic-reception.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "P2QO2lVNlgTL94TPKHWUL"
+uri = "file://artifacts/dr-karan-malik/public/gallery/treatment-room.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "J7wQPp5VjfXJt5l6h1OiE"
+uri = "file://artifacts/dr-karan-malik/public/gallery/dentist-patient.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "W2UbbJ0ljIXj3ZCkGby9U"
+uri = "file://artifacts/dr-karan-malik/public/gallery/dental-tools.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "zPN4qbb_X-qwHVY4j383F"
+uri = "file://artifacts/dr-karan-malik/public/gallery/patient-smile.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "urxFAtHbsm-SI3CDvXDfD"
+uri = "file://artifacts/dr-karan-malik/public/gallery/waiting-lounge.png"
+type = "image"
+title = "generated_image"

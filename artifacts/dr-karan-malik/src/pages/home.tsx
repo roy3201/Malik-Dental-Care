@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { 
   Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, 
   Menu, X, CheckCircle2, ChevronRight, Stethoscope, Star, 
-  Quote, ShieldCheck, HeartPulse, Activity
+  Quote, ShieldCheck, HeartPulse, Activity, Play, ChevronLeft, ZoomIn
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import clinicLogo from "@assets/image_1776411256885.png";
@@ -55,6 +55,7 @@ const Header = () => {
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
+    { name: "Gallery", href: "#gallery" },
     { name: "Reviews", href: "#reviews" },
     { name: "Contact", href: "#contact" },
   ];
@@ -375,6 +376,183 @@ const WhyChooseUs = () => {
   );
 };
 
+const Gallery = () => {
+  const [activeTab, setActiveTab] = useState<"photos" | "videos">("photos");
+  const [lightbox, setLightbox] = useState<number | null>(null);
+
+  const photos = [
+    { src: "/gallery/clinic-reception.png", caption: "Our Modern Reception" },
+    { src: "/gallery/treatment-room.png", caption: "Advanced Treatment Room" },
+    { src: "/gallery/dentist-patient.png", caption: "Gentle Patient Care" },
+    { src: "/gallery/dental-tools.png", caption: "Sterilized Equipment" },
+    { src: "/gallery/patient-smile.png", caption: "Beautiful Results" },
+    { src: "/gallery/waiting-lounge.png", caption: "Comfortable Lounge" },
+  ];
+
+  const videos = [
+    { thumbnail: "/gallery/treatment-room.png", title: "A Tour of Our Clinic", duration: "2:34" },
+    { thumbnail: "/gallery/dentist-patient.png", title: "What to Expect During Your First Visit", duration: "3:12" },
+    { thumbnail: "/gallery/patient-smile.png", title: "Patient Success Story — Teeth Whitening", duration: "1:58" },
+  ];
+
+  const goNext = () => setLightbox(prev => prev !== null ? (prev + 1) % photos.length : null);
+  const goPrev = () => setLightbox(prev => prev !== null ? (prev - 1 + photos.length) % photos.length : null);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (lightbox === null) return;
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "Escape") setLightbox(null);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [lightbox]);
+
+  return (
+    <section id="gallery" className="py-24 bg-secondary/20">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-primary font-semibold tracking-wider uppercase text-sm">Our Clinic</span>
+          <h2 className="text-3xl md:text-4xl font-bold font-serif text-foreground mt-4 mb-4">Photo & Video Gallery</h2>
+          <p className="text-muted-foreground text-lg">Take a virtual tour of our state-of-the-art facility and see the care we put into every detail.</p>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex bg-white rounded-full p-1 shadow-sm border border-border/50">
+            {(["photos", "videos"] as const).map(tab => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-8 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 capitalize ${
+                  activeTab === tab
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Photos Grid */}
+        <AnimatePresence mode="wait">
+          {activeTab === "photos" && (
+            <motion.div
+              key="photos"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.35 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            >
+              {photos.map((photo, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                  className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[4/3] bg-secondary"
+                  onClick={() => setLightbox(i)}
+                >
+                  <img src={photo.src} alt={photo.caption} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                    <ZoomIn className="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-white text-sm font-semibold">{photo.caption}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+
+          {/* Videos Grid */}
+          {activeTab === "videos" && (
+            <motion.div
+              key="videos"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.35 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {videos.map((video, i) => (
+                <div key={i} className="group cursor-pointer rounded-2xl overflow-hidden bg-white shadow-sm border border-border/50 hover:shadow-lg transition-all duration-300">
+                  <div className="relative aspect-video overflow-hidden">
+                    <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                      <div className="w-16 h-16 bg-white/90 group-hover:bg-primary group-hover:text-white transition-colors duration-300 rounded-full flex items-center justify-center shadow-lg">
+                        <Play className="h-7 w-7 text-primary group-hover:text-white ml-1 transition-colors duration-300" />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs font-medium px-2 py-1 rounded-md">
+                      {video.duration}
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">{video.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-1">Dr. Karan Malik Dental Clinic</p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setLightbox(null)}
+          >
+            <button
+              className="absolute top-4 right-4 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors"
+              onClick={() => setLightbox(null)}
+            >
+              <X className="h-6 w-6" />
+            </button>
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-3 transition-colors"
+              onClick={e => { e.stopPropagation(); goPrev(); }}
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-3 transition-colors"
+              onClick={e => { e.stopPropagation(); goNext(); }}
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+            <motion.div
+              key={lightbox}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              className="max-w-4xl max-h-[85vh] flex flex-col items-center"
+              onClick={e => e.stopPropagation()}
+            >
+              <img
+                src={photos[lightbox].src}
+                alt={photos[lightbox].caption}
+                className="max-h-[75vh] max-w-full object-contain rounded-xl shadow-2xl"
+              />
+              <p className="text-white/80 text-sm mt-4 font-medium">{photos[lightbox].caption}</p>
+              <p className="text-white/40 text-xs mt-1">{lightbox + 1} / {photos.length}</p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+};
+
 const Testimonials = () => {
   const reviews = [
     { name: "Rahul Sharma", text: "Dr. Malik is incredible! I was always afraid of dentists, but his gentle approach completely changed my mind. The clinic is spotless and the staff is wonderful.", rating: 5 },
@@ -593,6 +771,7 @@ const Footer = () => (
             <li><a href="#home" className="hover:text-primary transition-colors">Home</a></li>
             <li><a href="#about" className="hover:text-primary transition-colors">About Us</a></li>
             <li><a href="#services" className="hover:text-primary transition-colors">Dental Services</a></li>
+            <li><a href="#gallery" className="hover:text-primary transition-colors">Photo Gallery</a></li>
             <li><a href="#reviews" className="hover:text-primary transition-colors">Patient Reviews</a></li>
             <li><a href="#contact" className="hover:text-primary transition-colors">Contact Us</a></li>
           </ul>
@@ -649,6 +828,7 @@ export default function Home() {
         <About />
         <Services />
         <WhyChooseUs />
+        <Gallery />
         <Testimonials />
         <Contact />
       </main>
