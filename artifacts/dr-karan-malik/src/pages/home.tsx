@@ -156,7 +156,7 @@ const Hero = () => (
           </Button>
         </div>
         
-        <div className="mt-12 flex items-center gap-6 text-sm font-medium text-muted-foreground">
+        <div className="mt-12 flex flex-wrap items-center gap-4 text-sm font-medium text-muted-foreground">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-5 w-5 text-accent" />
             <span>Painless Procedures</span>
@@ -175,8 +175,8 @@ const About = () => (
   <section id="about" className="py-24 bg-white">
     <div className="container mx-auto px-4 max-w-7xl">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
-        <div className="relative">
-          <div className="absolute -inset-4 bg-secondary/50 rounded-[2.5rem] transform -rotate-3 z-0"></div>
+        <div className="relative overflow-hidden md:overflow-visible px-4 md:px-0">
+          <div className="absolute inset-0 md:-inset-4 bg-secondary/50 rounded-[2.5rem] transform -rotate-3 z-0"></div>
           <img 
             src="/images/doctor.png" 
             alt="Dr. Karan Malik" 
@@ -365,8 +365,8 @@ const WhyChooseUs = () => {
           </div>
           <div ref={statsRef} className="grid grid-cols-2 gap-4">
             <StatCard value={5000} suffix="+" label="Happy Patients" isVisible={isVisible} delay={0} />
-            <StatCard value={20} suffix="+" label="Years Experience" isVisible={isVisible} delay={200} className="translate-y-8" />
-            <StatCard value={15} suffix="+" label="Awards Won" isVisible={isVisible} delay={400} className="-translate-y-8" />
+            <StatCard value={20} suffix="+" label="Years Experience" isVisible={isVisible} delay={200} className="md:translate-y-8" />
+            <StatCard value={15} suffix="+" label="Awards Won" isVisible={isVisible} delay={400} className="md:-translate-y-8" />
             <StatCard value={100} suffix="%" label="Commitment" isVisible={isVisible} delay={600} />
           </div>
         </div>
