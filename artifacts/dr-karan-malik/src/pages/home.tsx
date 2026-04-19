@@ -1,13 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
-import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { 
   Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, 
-  Menu, X, CheckCircle2, ChevronRight, Stethoscope, Star, 
+  Menu, X, CheckCircle2, ChevronRight, Star, 
   Quote, ShieldCheck, HeartPulse, Activity, Play, ChevronLeft, ZoomIn
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -301,6 +300,7 @@ const StatCard = ({
       const timer = setTimeout(() => setStarted(true), delay);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [isVisible, started, delay]);
 
   const displayValue = value >= 1000 ? `${Math.floor(count / 1000)}k` : count;
