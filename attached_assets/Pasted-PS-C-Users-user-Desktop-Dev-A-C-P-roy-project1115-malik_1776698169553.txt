@@ -1,0 +1,82 @@
+PS C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care> npm install -g pnpm
+>> pnpm install
+>> pnpm --filter @workspace/dr-karan-malik run dev
+
+added 1 package in 39s
+
+1 package is looking for funding
+  run `npm fund` for details
+Scope: all 9 workspace projects
+Lockfile is up to date, resolution step is skipped
+Packages: +482
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ WARN  Request took 10247ms: https://registry.npmjs.org/pnpm
+ WARN  Tarball download average speed 18 KiB/s (size 36 KiB) is below 50 KiB/s: https://registry.npmjs.org/pg-protocol/-/pg-protocol-1.13.0.tgz (GET)
+ WARN  Tarball download average speed 1 KiB/s (size 9 KiB) is below 50 KiB/s: https://registry.npmjs.org/eventemitter3/-/eventemitter3-4.0.7.tgz (GET)
+ WARN  Tarball download average speed 29 KiB/s (size 709 KiB) is below 50 KiB/s: https://registry.npmjs.org/motion-dom/-/motion-dom-12.35.1.tgz (GET)
+ WARN  Tarball download average speed 1 KiB/s (size 5 KiB) is below 50 KiB/s: https://registry.npmjs.org/react-is/-/react-is-18.3.1.tgz (GET)
+ WARN  9 other warnings
+ WARN  GET https://registry.npmjs.org/motion-utils/-/motion-utils-12.29.2.tgz error (ERR_SOCKET_TIMEOUT). Will retry in 10 seconds. 2 retries left.
+ WARN  GET https://registry.npmjs.org/lucide-react/-/lucide-react-0.545.0.tgz error (ERR_SOCKET_TIMEOUT). Will retry in 10 seconds. 2 retries left.
+ WARN  GET https://registry.npmjs.org/next-themes/-/next-themes-0.4.6.tgz error (ERR_SOCKET_TIMEOUT). Will retry in 10 seconds. 2 retries left.
+ WARN  30 other warningstry.npmjs.org/@date-fns/tz/-/tz-1.4.1.tgz error (ERR_SOCKET_TIM WARN  63 other warningsseconds. 2 retries left.
+ WARN  GET https://registry.npmjs.org/date-fns-jalali/-/date-fns-jalali-4.1.0-0.tgz error (ERR_SOCKET_TIMEOUT). Will retry in 10 seconds. 2 retries left.
+ WARN  GET https://registry.npmjs.org/react-resizable-panels/-/react-resizable-panels-2.1.9.tgz error (ERR_SOCKET_TIMEOUT). Will retry in 10 seconds. 2 retries left.
+ WARN  GET https://registry.npmjs.org/recharts/-/recharts-2.15.4.tgz error (ERR_SOCKET_TIMEOUT). Will retry in 10 seconds. 2 retries left.
+ WARN  GET https://registry.npmjs.org/d3-path/-/d3-path-3.1.0.tgz error (ERR_SOCKET_TIMEOUT). Will retry in 10 seconds. 2 retries left.
+Downloading react-icons@5.6.0: 22.42 MB/22.42 MB, done
+Progress: resolved 482, reused 0, downloaded 482, added 482, done
+node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild: Running postinstall script, done in 35.2s
+
+devDependencies:
++ prettier 3.8.1
++ typescript 5.9.3
+
+. preinstall$ sh -c 'rm -f package-lock.json yarn.lock; case "$npm_config_user_agent…
+│ 'sh' is not recognized as an internal or external command,
+│ operable program or batch file.
+└─ Failed in 343ms at C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care
+ ELIFECYCLE  Command failed with exit code 1.
+
+> @workspace/dr-karan-malik@0.0.0 dev C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care\artifacts\dr-karan-malik
+> vite --config vite.config.ts --host 0.0.0.0
+
+C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care\node_modules\.pnpm\rollup@4.59.0\node_modules\rollup\dist\native.js:115
+                throw new Error(
+                      ^
+
+Error: Cannot find module @rollup/rollup-win32-x64-msvc. npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try `npm i` again after removing both package-lock.json and node_modules directory.
+    at requireWithFriendlyError (C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care\node_modules\.pnpm\rollup@4.59.0\node_modules\rollup\dist\native.js:115:9)
+    at Object.<anonymous> (C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care\node_modules\.pnpm\rollup@4.59.0\node_modules\rollup\dist\native.js:124:76)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at loadCJSModuleWithModuleLoad (node:internal/modules/esm/translators:339:3)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:242:7) {
+  [cause]: Error: Cannot find module '@rollup/rollup-win32-x64-msvc'
+  Require stack:
+  - C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care\node_modules\.pnpm\rollup@4.59.0\node_modules\rollup\dist\native.js
+      at Module._resolveFilename (node:internal/modules/cjs/loader:1421:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1059:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1064:22)
+      at Module._load (node:internal/modules/cjs/loader:1227:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+      at Module.require (node:internal/modules/cjs/loader:1504:12)
+      at require (node:internal/modules/helpers:152:16)
+      at requireWithFriendlyError (C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care\node_modules\.pnpm\rollup@4.59.0\node_modules\rollup\dist\native.js:97:10)
+      at Object.<anonymous> (C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care\node_modules\.pnpm\rollup@4.59.0\node_modules\rollup\dist\native.js:124:76) {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      'C:\\Users\\user\\Desktop\\Dev.  A_C_P\\roy-project1115-malik-dental-care\\Malik-Dental-Care\\node_modules\\.pnpm\\rollup@4.59.0\\node_modules\\rollup\\dist\\native.js'    ]
+  }
+}
+
+Node.js v24.12.0
+C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care\artifacts\dr-karan-malik:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/dr-karan-malik@0.0.0 dev: `vite --config vite.config.ts --host 0.0.0.0`
+Exit status 1
+PS C:\Users\user\Desktop\Dev.  A_C_P\roy-project1115-malik-dental-care\Malik-Dental-Care> 
